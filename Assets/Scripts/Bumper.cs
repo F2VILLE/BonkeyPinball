@@ -9,7 +9,8 @@ public class Bumper : MonoBehaviour
             Rigidbody ballRigidbody = collision.gameObject.GetComponent<Rigidbody>();
             if (ballRigidbody != null)
             {
-                Vector3 bounceDirection = (collision.transform.position - transform.position).normalized;
+                Vector3 incomingDirection = (collision.transform.position - transform.position).normalized;
+                Vector3 bounceDirection = new Vector3(incomingDirection.x, incomingDirection.y, -incomingDirection.z).normalized;
                 ballRigidbody.AddForce(bounceDirection * 500f, ForceMode.Impulse);
             }
         }

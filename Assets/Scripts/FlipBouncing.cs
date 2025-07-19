@@ -22,7 +22,7 @@ public class FlipBouncing : MonoBehaviour
                 Rigidbody ballRigidbody = collision.gameObject.GetComponent<Rigidbody>();
                 if (ballRigidbody != null)
                 {
-                    Vector3 bounceDirection = transform.up;
+                    Vector3 bounceDirection = transform.forward;
                     if (reverseBounceDirection)
                     {
                         bounceDirection = -bounceDirection;

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 // this is the Ball launcher for the Pinball game
 // It will be used to launch the ball when the player presses the space bar
@@ -6,7 +7,7 @@ public class SpringShot : MonoBehaviour
 
 {
     [SerializeField] private float launchForce = 10f; // Force applied to the ball when launched
-
+    [SerializeField] private AudioClip launchSound; // Sound played when the ball is launched
     private bool isBallInTrigger = false; // Flag to check if the ball is in the trigger area
 
     void Start()
@@ -25,6 +26,7 @@ public class SpringShot : MonoBehaviour
         }
     }
 
+
     void LaunchBall()
     {
         // Find the ball GameObject in the scene
@@ -35,9 +37,20 @@ public class SpringShot : MonoBehaviour
             Rigidbody ballRigidbody = ball.GetComponent<Rigidbody>();
             if (ballRigidbody != null)
             {
-                // Apply a force to the ball in the upward direction
-                ballRigidbody.AddForce(Vector3.forward
-                 * launchForce, ForceMode.Impulse);
+                // play the audio clip
+                if (launchSound)
+                {
+                    AudioSource.PlayClipAtPoint(launchSound, transform.position);
+                }
+                // Wait for 0.3 seconds before launching the ball (without coroutine)
+                float launchDelay = 1f;
+                float timer = 0f;
+                while (timer < launchDelay)
+                {
+                    timer += Time.fixedDeltaTime;
+                }
+                ballRigidbody.AddForce(Vector3.forward * launchForce, ForceMode.Impulse);
+
                 Debug.Log("Ball launched with force: " + launchForce);
             }
             else
@@ -60,7 +73,7 @@ public class SpringShot : MonoBehaviour
             Debug.Log("Ball entered the spring trigger area.");
         }
     }
-    
+
     void OnTriggerExit(Collider other)
     {
         // Check if the object exiting the trigger is the ball
