@@ -4,7 +4,7 @@ public class Flips : MonoBehaviour
 {
     [SerializeField] private HingeJoint flipLeftJoint;
     [SerializeField] private HingeJoint flipRightJoint;
-    [SerializeField] private float flipForce = 1000f;
+    [SerializeField] private float flipForce = 1500f;
     [SerializeField] private float flipReturnForce = 500f;
 
     void Start()
